@@ -10,3 +10,26 @@
 // 2번째의 해결방법
 // const predicate = (value: string | number): value is string => typeof value === 'string';
 // const filtered3 = [1,'2',3,'4',5].filter(predicate); // 결과가 string | number 로 나와서 잘 못찾는다.
+
+// forEach, map, filter 만들어보기
+interface Arr<T> {
+    // forEach(callback: (item: T)=> void): void;   
+    forEach(callback: (value: T) => void): void;
+    map<S>(callback: (value: T) => S): S[];
+    filter<S extends T>(callback: (value: T) => value is S ): S[];
+}
+
+const a: Arr<number> = [1,2,3];
+const result1 = a.forEach((item)=> {
+    console.log(item);
+})
+
+const b: Arr<number> = [1,2,3];
+const result2 = b.map<string>((item) => {
+    return String(item) ;
+})
+
+const c: Arr<number | string> = [1,2,3,'4','5'];
+const result3 = c.filter<string>((item): item is string => {
+    return item === '5'
+})
